@@ -1,0 +1,80 @@
+{
+  
+  "type": "module",
+  
+  "name": "expense-management-backend",
+  
+  "version": "1.0.0",
+  
+  "description": "Backend for expense management application",
+  
+  "main": "server.js",
+  
+  "scripts": {
+  
+    
+  "start": "node server.js",
+  
+    
+  "dev": "nodemon server.js"
+  
+  },
+  
+  "dependencies": {
+  
+    
+  "bcryptjs": "^2.4.3",
+  
+    
+  "cors": "^2.8.6",
+  
+    
+  "dotenv": "^16.6.1",
+  
+    
+  "express": "^4.22.1",
+  
+    
+  "jsonwebtoken": "^9.0.3",
+  
+    
+  "mongodb": "^5.9.2",
+  
+    
+  "mongoose": "^7.8.8",
+  
+    
+  "multer": "^2.0.2",
+  
+    
+  "nodemailer": "^7.0.13"
+  
+  },
+  
+  "devDependencies": {
+  
+    
+  "nodemon": "^3.0.2"
+  
+  },
+  
+  "keywords": [
+  
+    
+  "expense",
+  
+    
+  "management",
+  
+    
+  "mongodb",
+  
+    
+  "express"
+  
+  ],
+  
+  "author": "",
+  
+  "license": "ISC"
+}
