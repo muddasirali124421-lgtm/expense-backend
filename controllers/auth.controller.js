@@ -3,14 +3,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
+const passwordPepper = process.env.PASSWORD_SALT || "";
+
+const applyPepper = (plainPassword) => `${plainPassword}${passwordPepper}`;
+
 export const signupUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: "User already exists" });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(applyPepper(password), 10);
 
     const user = new User({ email, password: hashedPassword });
     await user.save();
@@ -28,7 +31,7 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "User not found" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(applyPepper(password), user.password);
     if (!isMatch) return res.status(400).json({ message: "Wrong password" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
@@ -91,8 +94,7 @@ export const resetPassword = async (req, res) => {
 
     if (!user) return res.status(400).json({ message: "Invalid or expired OTP" });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const hashedPassword = await bcrypt.hash(applyPepper(newPassword), 10);
 
     user.password = hashedPassword;
     user.resetPasswordOTP = null;

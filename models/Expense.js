@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+const CATEGORY_ENUM = [
+  "food",
+  "transport",
+  "housing",
+  "utilities",
+  "shopping",
+  "healthcare",
+  "entertainment",
+  "education",
+  "travel",
+  "subscriptions",
+  "insurance",
+  "savings",
+  "personal-care",
+  "gifts",
+  "taxes",
+  "other",
+];
+
 const expenseSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -14,7 +33,7 @@ const expenseSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['food', 'transport', 'entertainment', 'utilities', 'healthcare', 'shopping', 'education', 'other']
+    enum: CATEGORY_ENUM,
   },
   description: {
     type: String,
